@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FarmTrust Registration</title>
+</head>
+<body style="font-family: Arial, sans-serif; text-align: center; margin-top: 50px;">
+
+    <div style="border: 1px solid #ccc; padding: 20px; width: 300px; margin: 0 auto; border-radius: 10px;">
+        <h2>🌱 FarmTrust</h2>
+        <h3>Register New Farmer</h3>
+        
+        <input type="text" id="farmer-name" placeholder="Enter Farmer Name" style="padding: 8px; width: 90%;"><br><br>
+        <input type="text" id="farmer-location" placeholder="Enter District (e.g., Ratnapura)" style="padding: 8px; width: 90%;"><br><br>
+        
+        <button id="register-btn" style="padding: 10px 20px; cursor: pointer; background: #28a745; color: white; border: none; border-radius: 5px;">Register Farmer</button>
+        
+        <br><br>
+        
+        <h4 id="server-response" style="color: green;"></h4>
+    </div>
+    <hr style="margin: 30px 0;">
+        <h3>Admin Dashboard: View Farmers</h3>
+        
+        <button id="load-btn" style="padding: 10px 20px; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 5px;">Load Farmer List</button>
+        
+        <ul id="farmer-list" style="list-style-type: none; padding: 0; margin-top: 20px; text-align: left;"></ul>
+
+    <script src="script.js"></script>
+</body>
+</html>
