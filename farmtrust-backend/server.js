@@ -18,6 +18,15 @@ db.run(`CREATE TABLE IF NOT EXISTS farmers (
     name TEXT,
     location TEXT
 )`);
+// Create the Crops Table
+db.run(`CREATE TABLE IF NOT EXISTS crops (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    crop_name TEXT,
+    base_price REAL
+)`, (err) => {
+    if (err) console.error("Error creating crops table:", err.message);
+    else console.log("🌽 Crops table is ready!");
+});
 
 // 4. The Upgraded Catcher's Mitt
 app.post('/api/farmers', (req, res) => {
@@ -108,5 +117,38 @@ app.delete('/api/farmers/:id', (req, res) => {
         
         console.log(`🗑️ SUCCESS! Erased farmer ID ${farmerId} from the database.`);
         res.json({ message: "Farmer deleted successfully!" });
+    });
+});
+
+// ==========================================
+// 🌾 CROP MANAGEMENT ENDPOINTS
+// ==========================================
+
+// 1. Add a new crop (POST)
+app.post('/api/crops', (req, res) => {
+    const cropName = req.body.crop_name;
+    const basePrice = req.body.base_price;
+
+    const sql = `INSERT INTO crops (crop_name, base_price) VALUES (?, ?)`;
+    
+    db.run(sql, [cropName, basePrice], function(err) {
+        if (err) {
+            console.error(err.message);
+            res.status(500).json({ error: "Failed to add crop" });
+            return;
+        }
+        console.log(`🌾 SUCCESS! Added ${cropName} to database with ID: ${this.lastID}`);
+        res.json({ message: "Crop added successfully!", cropId: this.lastID });
+    });
+});
+
+// 2. View all crops (GET)
+app.get('/api/crops', (req, res) => {
+    db.all(`SELECT * FROM crops`, [], (err, rows) => {
+        if (err) {
+            res.status(500).json({ error: "Failed to load crops" });
+            return;
+        }
+        res.json(rows);
     });
 });
